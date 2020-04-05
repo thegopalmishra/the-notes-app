@@ -1,2 +1,2 @@
-# thegopalmishra
-the-notes-app
+# the-notes-app
+Frontend task for Automate.io
