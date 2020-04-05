@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-action-bar',
@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActionBarComponent implements OnInit {
 
+  @Output() sideToggle = new EventEmitter();
+
+  value = '';
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleMenu(): void{
+    this.sideToggle.emit();
+  }
+  deleteNote(): void {
+
+  }
+  addNote(): void {
+
   }
 
 }

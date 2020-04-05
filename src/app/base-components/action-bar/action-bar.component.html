@@ -1,1 +1,53 @@
-<p>action-bar works!</p>
+<div class="titlebar">
+  <div class="buttons">
+    <div class="close">
+      <a class="closebutton" href="#"><span><strong>x</strong></span></a>
+    </div>
+    <div class="minimize">
+      <a class="minimizebutton" href="#"><span><strong>&ndash;</strong></span></a>
+    </div>
+    <div class="zoom">
+      <a class="zoombutton" href="#"><span><strong>+</strong></span></a>
+    </div>
+  </div>
+  <span class="title">The Notes App!</span>
+
+  <div class="action-pane">
+    <div class="action-buttons">
+      <div class="nav right">
+          <span class="action-btns">
+            <button mat-icon-button aria-label="Toggle Menu" (click)="toggleMenu()">
+              <mat-icon aria-hidden="false" aria-label="Toggle Sidebar">menu</mat-icon>
+            </button>
+          </span>
+
+        <span class="action-btns">
+          <button mat-icon-button aria-label="Delete Noteu" (click)="deleteNote()">
+            <mat-icon aria-hidden="false" aria-label="Cancel">delete_forever</mat-icon>
+          </button>
+
+        </span>
+          <span class="action-btns">
+            <button mat-icon-button aria-label="Add Note" (click)="addNote()">
+              <mat-icon aria-hidden="false" aria-label="Cancel">note_add</mat-icon>
+            </button>
+
+          </span>
+
+      </div>
+    </div>
+  </div>
+
+  <span class="notes-search-container">
+    <mat-form-field class="notes-search" floatLabel="never">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Search All Notes" [(ngModel)]="value">
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <mat-icon>close</mat-icon>
+    </button>
+    </mat-form-field>
+  </span>
+
+
+</div>

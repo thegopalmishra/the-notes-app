@@ -1,0 +1,31 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" opened>
+    <mat-list>
+      <div mat-subheader>All Notes</div>
+      <mat-divider></mat-divider>
+      <mat-list-item class="note-list-entry" *ngFor="let note of notes.slice().reverse()">
+        <mat-icon mat-list-icon>note</mat-icon>
+        <div mat-line class="note-list-title">{{note.name}}</div>
+        <div mat-line class="note-list-content"> {{note.content}} </div>
+        <div mat-line class="align-right note-list-date"> {{note.updated | date : 'medium'}} </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+  <form class="note-edit-container">
+    <mat-form-field class="note-title">
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="Enter Title Here">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="note-content">
+      <mat-label>Content</mat-label>
+      <textarea matInput placeholder="Enter Content Here..." matTextareaAutosize matAutosizeMinRows=20></textarea>
+    </mat-form-field>
+  </form>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

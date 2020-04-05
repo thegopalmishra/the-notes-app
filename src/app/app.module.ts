@@ -5,20 +5,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActionBarComponent } from './base-components/action-bar/action-bar.component';
-import { SideBarComponent } from './base-components/side-bar/side-bar.component';
-import { NotesEditComponent } from './base-components/notes-edit/notes-edit.component';
+import { NotesContentComponent } from './base-components/notes-content/notes-content.component';
+import { MaterialModules } from './material-modules';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     ActionBarComponent,
-    SideBarComponent,
-    NotesEditComponent
+    NotesContentComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModules,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
