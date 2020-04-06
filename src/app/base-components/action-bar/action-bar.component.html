@@ -1,13 +1,13 @@
 <div class="titlebar">
   <div class="buttons">
     <div class="close">
-      <a class="closebutton" href="#"><span><strong>x</strong></span></a>
+      <a class="closebutton" ><span><strong>x</strong></span></a>
     </div>
     <div class="minimize">
-      <a class="minimizebutton" href="#"><span><strong>&ndash;</strong></span></a>
+      <a class="minimizebutton" ><span><strong>&ndash;</strong></span></a>
     </div>
     <div class="zoom">
-      <a class="zoombutton" href="#"><span><strong>+</strong></span></a>
+      <a class="zoombutton" ><span><strong>+</strong></span></a>
     </div>
   </div>
   <span class="title">The Notes App!</span>
@@ -15,26 +15,26 @@
   <div class="action-pane">
     <div class="action-buttons">
       <div class="nav right">
-          <span class="action-btns action-button-hover">
+          <span class="action-btns">
             <button mat-icon-button aria-label="Toggle Menu" (click)="toggleMenu()">
               <mat-icon aria-hidden="false" aria-label="Toggle Sidebar">menu</mat-icon>
             </button>
           </span>
 
-          <span class="action-btns action-button-hover">
+          <span class="action-btns">
             <button mat-icon-button aria-label="Toggle Menu" (click)="toggleView()">
-              <mat-icon *ngIf="listView"aria-hidden="false" aria-label="Switch To Grid View">view_module</mat-icon>
+              <mat-icon *ngIf="listView" aria-hidden="false" aria-label="Switch To Grid View">view_module</mat-icon>
               <mat-icon *ngIf="!listView" aria-hidden="false" aria-label="Switch To List View">view_list</mat-icon>
             </button>
           </span>
 
-          <span class="action-btns action-button-hover">
+          <span class="action-btns">
             <button mat-icon-button aria-label="Delete Note" (click)="toggleFreeze()">
               <mat-icon *ngIf="noFreeze" aria-hidden="false" aria-label="Toggle Freeze On">lock</mat-icon>
               <mat-icon *ngIf="!noFreeze" aria-hidden="false" aria-label="Toggle Freeze Off">lock_open</mat-icon>
             </button>
           </span>
-        <span class="action-btns" [ngClass]="{'action-button-hover' : !isNoteSelected}">
+        <span [ngClass]="{'action-btns-disabled' : !isNoteSelected, 'action-btns' : isNoteSelected }">
           <button mat-icon-button aria-label="Delete Note" (click)="deleteNote()" [disabled]="!isNoteSelected">
             <mat-icon aria-hidden="false" aria-label="Cancel">delete_forever</mat-icon>
           </button>
@@ -55,7 +55,7 @@
       <mat-icon matPrefix>search</mat-icon>
       <mat-label>Search</mat-label>
       <input matInput placeholder="Search All Notes" [(ngModel)]="searchValue" (ngModelChange) ="searchNotes()">
-    <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+    <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
       <mat-icon>close</mat-icon>
     </button>
     </mat-form-field>
@@ -66,7 +66,7 @@
       <mat-icon matPrefix>search</mat-icon>
       <mat-label>Search</mat-label>
       <input matInput placeholder="Search All Notes" [(ngModel)]="searchValue" (ngModelChange) ="searchNotes()">
-      <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+      <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>

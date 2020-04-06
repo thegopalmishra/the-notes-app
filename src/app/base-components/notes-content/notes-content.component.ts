@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-notes-content',
   templateUrl: './notes-content.component.html',
-  styleUrls: ['./notes-content.component.scss']
+  styleUrls: ['./notes-content.component.scss'],
 })
 export class NotesContentComponent implements OnInit {
   @ViewChild(MatSidenav)
@@ -19,40 +19,22 @@ export class NotesContentComponent implements OnInit {
   public editMode: boolean;
   public newMode: boolean;
   noteTitle: string;
+  editFreezed = false;
   noteContent: string;
   notes: Note[] = [];
-  // notesBackup = new BehaviorSubject<Note[]>([]);
   notesBackup: Note[] = [];
 
-  // notes = [{
-  //   name: 'Note 1',
-  //   content: 'This is note 1',
-  //   updated: new Date()
-  // },
-  //   {
-  //     name: 'Note 2',
-  //     content: 'This is Note 2',
-  //     updated: new Date()
-  //   }
-  // ];
-
-  constructor(private ns: NotesService, private snackBar: MatSnackBar) { }
+  constructor(private ns: NotesService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
-    // this.ns.subscribe(this.notes);
-    this.ns.subscribe().subscribe((arg) => {this.notes = arg; this.notesBackup = arg; });
-
-    // this.ns.subscribe(this.notesBackup);
-
-    // }
-    // this.editNoteForm = this.formBuilder.group({
-    //   title: ['', Validators.required],
-    //   text: ['', Validators.required]
-    // });
+    this.ns.subscribe().subscribe((arg) => {
+      this.notes = arg;
+      this.notesBackup = arg;
+    });
   }
 
-  notify(message: string, action: string, timeout: number): void{
-    timeout = (timeout > 1000) ? timeout : 2000;
+  notify(message: string, action: string, timeout: number): void {
+    timeout = timeout > 1000 ? timeout : 2000;
     this.snackBar.open(message, action, {
       duration: timeout,
     });
@@ -63,22 +45,22 @@ export class NotesContentComponent implements OnInit {
   toggleNotesView(listView): void {
     if (listView) {
       this.notify('Layout Changed To Grid', 'Got It!', 2000);
-    }
-    else {
+    } else {
       this.notify('Layout Changed To List', 'Got It!', 2000);
     }
   }
 
   toggleFreeze(noFreeze): void {
     if (noFreeze) {
-      this.notify('Panes Frezeed', 'Got It!', 2000);
-    }
-    else {
-      this.notify('Panes Unfreezed', 'Got It!', 2000);
+      this.editFreezed = noFreeze;
+      this.notify('Editing Frezeed', 'Got It!', 2000);
+    } else {
+      this.editFreezed = noFreeze;
+      this.notify('Editing Unfreezed', 'Got It!', 2000);
     }
   }
 
-  clearInputs(): void{
+  clearInputs(): void {
     this.noteTitle = this.noteContent = '';
   }
   addNewNote(): void {
@@ -100,7 +82,7 @@ export class NotesContentComponent implements OnInit {
 
   onNoteSelect(): boolean {
     this.noteSelected.emit(this.currentNote.id >= 0);
-    console.log('emitting', this.currentNote.id );
+    console.log('emitting', this.currentNote.id);
     return this.currentNote.id >= 0;
   }
 
@@ -110,22 +92,20 @@ export class NotesContentComponent implements OnInit {
     this.showNoteContainer = false;
     this.editMode = false;
     this.newMode = false;
-    if (this.currentNote.id < 0) { return; }
+    if (this.currentNote.id < 0) {
+      return;
+    }
     this.ns.deleteNote(this.currentNote.id);
-    this.currentNote = { id: -1, title: '', content: '', modified: new Date(null) };
+    this.currentNote = {
+      id: -1,
+      title: '',
+      content: '',
+      modified: new Date(null),
+    };
     this.onNoteSelect();
   }
 
-  editNote(): void {
-    // if (this.currentNote.id < 0) return;
-    // this.editNoteForm.get('title').setValue(this.currentNote.title);
-    // this.editNoteForm.get('text').setValue(this.currentNote.text);
-    // this.createNote = false;
-  }
-
   updateNote(): void {
-    // if (!this.editNoteForm.valid) return;
-    debugger;
     if (this.newMode) {
       this.currentNote = this.ns.addNote(this.noteTitle, this.noteContent);
       this.newMode = false;
@@ -135,10 +115,14 @@ export class NotesContentComponent implements OnInit {
       const noteContent = this.noteContent;
       const id = this.currentNote.id;
       this.ns.updateNote(id, noteTitle, noteContent);
-      this.currentNote = { id, title: noteTitle, content: noteContent, modified: new Date() };
+      this.currentNote = {
+        id,
+        title: noteTitle,
+        content: noteContent,
+        modified: new Date(),
+      };
     }
     this.notesBackup = this.notes;
-    // this.editNote = false;
   }
 
   searchNotes(key) {
@@ -148,13 +132,10 @@ export class NotesContentComponent implements OnInit {
       console.log(note);
 
       return (
-          note.title.toLowerCase().includes(key.toLowerCase()) ||
-          note.content.toLowerCase().includes(key.toLowerCase())
+        note.title.toLowerCase().includes(key.toLowerCase()) ||
+        note.content.toLowerCase().includes(key.toLowerCase())
+        // || note.modified. toString().toLowerCase().includes(key.toLowerCase())
       );
     });
-
-
   }
-
-
-  }
+}

@@ -3,10 +3,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-action-bar',
   templateUrl: './action-bar.component.html',
-  styleUrls: ['./action-bar.component.scss']
+  styleUrls: ['./action-bar.component.scss'],
 })
 export class ActionBarComponent implements OnInit {
-
   @Output() sideToggle = new EventEmitter();
   @Output() viewToggle = new EventEmitter<boolean>();
   @Output() freezeToggle = new EventEmitter<boolean>();
@@ -19,12 +18,11 @@ export class ActionBarComponent implements OnInit {
   noFreeze = true;
   isNoteSelected = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  toggleMenu(): void{
+  toggleMenu(): void {
     this.sideToggle.emit();
   }
   deleteNote(): void {
@@ -33,7 +31,7 @@ export class ActionBarComponent implements OnInit {
   addNote(): void {
     this.newNote.emit();
   }
-  toggleView(): void{
+  toggleView(): void {
     this.listView = !this.listView;
     this.viewToggle.emit(!this.listView);
   }
@@ -41,12 +39,15 @@ export class ActionBarComponent implements OnInit {
     this.noFreeze = !this.noFreeze;
     this.freezeToggle.emit(!this.noFreeze);
   }
-  searchNotes(): void{
+  searchNotes(): void {
     this.search.emit(this.searchValue);
   }
-  noteSelected(isSelected): void{
-    console.log('notified')
+  noteSelected(isSelected): void {
+    console.log('notified');
     this.isNoteSelected = isSelected;
   }
-
+  clearSearch(): void{
+    this.searchValue = '';
+    this.searchNotes();
+  }
 }
