@@ -15,23 +15,35 @@
   <div class="action-pane">
     <div class="action-buttons">
       <div class="nav right">
-          <span class="action-btns">
+          <span class="action-btns action-button-hover">
             <button mat-icon-button aria-label="Toggle Menu" (click)="toggleMenu()">
               <mat-icon aria-hidden="false" aria-label="Toggle Sidebar">menu</mat-icon>
             </button>
           </span>
 
-        <span class="action-btns">
-          <button mat-icon-button aria-label="Delete Noteu" (click)="deleteNote()">
+          <span class="action-btns action-button-hover">
+            <button mat-icon-button aria-label="Toggle Menu" (click)="toggleView()">
+              <mat-icon *ngIf="listView"aria-hidden="false" aria-label="Switch To Grid View">view_module</mat-icon>
+              <mat-icon *ngIf="!listView" aria-hidden="false" aria-label="Switch To List View">view_list</mat-icon>
+            </button>
+          </span>
+
+          <span class="action-btns action-button-hover">
+            <button mat-icon-button aria-label="Delete Note" (click)="toggleFreeze()">
+              <mat-icon *ngIf="noFreeze" aria-hidden="false" aria-label="Toggle Freeze On">lock</mat-icon>
+              <mat-icon *ngIf="!noFreeze" aria-hidden="false" aria-label="Toggle Freeze Off">lock_open</mat-icon>
+            </button>
+          </span>
+        <span class="action-btns" [ngClass]="{'action-button-hover' : !isNoteSelected}">
+          <button mat-icon-button aria-label="Delete Note" (click)="deleteNote()" [disabled]="!isNoteSelected">
             <mat-icon aria-hidden="false" aria-label="Cancel">delete_forever</mat-icon>
           </button>
-
         </span>
-          <span class="action-btns">
+
+          <span class="action-btns action-button-hover">
             <button mat-icon-button aria-label="Add Note" (click)="addNote()">
               <mat-icon aria-hidden="false" aria-label="Cancel">note_add</mat-icon>
             </button>
-
           </span>
 
       </div>
@@ -42,10 +54,21 @@
     <mat-form-field class="notes-search" floatLabel="never">
       <mat-icon matPrefix>search</mat-icon>
       <mat-label>Search</mat-label>
-      <input matInput placeholder="Search All Notes" [(ngModel)]="value">
-    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <input matInput placeholder="Search All Notes" [(ngModel)]="searchValue" (ngModelChange) ="searchNotes()">
+    <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
       <mat-icon>close</mat-icon>
     </button>
+    </mat-form-field>
+  </span>
+
+  <span class="notes-search-container-small">
+    <mat-form-field class="notes-search" floatLabel="never">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Search All Notes" [(ngModel)]="searchValue" (ngModelChange) ="searchNotes()">
+      <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+        <mat-icon>close</mat-icon>
+      </button>
     </mat-form-field>
   </span>
 

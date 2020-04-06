@@ -3,26 +3,26 @@
     <mat-list>
       <div mat-subheader>All Notes</div>
       <mat-divider></mat-divider>
-      <mat-list-item class="note-list-entry" *ngFor="let note of notes.slice().reverse()">
+      <mat-list-item class="note-list-entry" *ngFor="let note of notes.slice().reverse()" (click)="selectNote(note.id)" [ngClass]="{'active-note' : (note.id == currentNote?.id)}">
         <mat-icon mat-list-icon>note</mat-icon>
-        <div mat-line class="note-list-title">{{note.name}}</div>
+        <div mat-line class="note-list-title">{{note.title}}</div>
         <div mat-line class="note-list-content"> {{note.content}} </div>
-        <div mat-line class="align-right note-list-date"> {{note.updated | date : 'medium'}} </div>
+        <div mat-line class="align-right note-list-date"> {{note.modified | date : 'medium'}} </div>
         <mat-divider></mat-divider>
       </mat-list-item>
 
     </mat-list>
   </mat-sidenav>
   <mat-sidenav-content>
-  <form class="note-edit-container">
+  <form class="note-edit-container" *ngIf="showNoteContainer">
     <mat-form-field class="note-title">
       <mat-label>Title</mat-label>
-      <input matInput placeholder="Enter Title Here">
+      <input matInput placeholder="Enter Title Here..." name="noteTitle" [(ngModel)]="noteTitle" (ngModelChange)="updateNote()">
     </mat-form-field>
     <br>
     <mat-form-field class="note-content">
       <mat-label>Content</mat-label>
-      <textarea matInput placeholder="Enter Content Here..." matTextareaAutosize matAutosizeMinRows=20></textarea>
+      <textarea matInput placeholder="Enter Content Here..." matTextareaAutosize matAutosizeMinRows=20 name="noteContent" [(ngModel)]="noteContent" (ngModelChange)="updateNote()"></textarea>
     </mat-form-field>
   </form>
 

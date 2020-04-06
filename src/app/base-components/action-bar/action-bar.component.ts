@@ -8,8 +8,16 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class ActionBarComponent implements OnInit {
 
   @Output() sideToggle = new EventEmitter();
+  @Output() viewToggle = new EventEmitter<boolean>();
+  @Output() freezeToggle = new EventEmitter<boolean>();
+  @Output() search = new EventEmitter<string>();
+  @Output() newNote = new EventEmitter();
+  @Output() delNote = new EventEmitter();
 
-  value = '';
+  searchValue = '';
+  listView = true;
+  noFreeze = true;
+  isNoteSelected = false;
 
   constructor() { }
 
@@ -20,10 +28,25 @@ export class ActionBarComponent implements OnInit {
     this.sideToggle.emit();
   }
   deleteNote(): void {
-
+    this.delNote.emit();
   }
   addNote(): void {
-
+    this.newNote.emit();
+  }
+  toggleView(): void{
+    this.listView = !this.listView;
+    this.viewToggle.emit(!this.listView);
+  }
+  toggleFreeze(): void {
+    this.noFreeze = !this.noFreeze;
+    this.freezeToggle.emit(!this.noFreeze);
+  }
+  searchNotes(): void{
+    this.search.emit(this.searchValue);
+  }
+  noteSelected(isSelected): void{
+    console.log('notified')
+    this.isNoteSelected = isSelected;
   }
 
 }

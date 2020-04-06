@@ -1,6 +1,6 @@
-<app-action-bar (sideToggle)="toggleSidebar()"></app-action-bar>
-<app-notes-content >
-</app-notes-content>
+<app-action-bar (sideToggle)="toggleSidebar()" (newNote)="newNote()" (delNote)="deleteNote()" (viewToggle)="toggleView($event)" (search)="searchNotes($event)"
+(freezeToggle)="toggleFreeze($event)"></app-action-bar>
+<app-notes-content (noteSelected)="notifyNoteSelected($event)">  </app-notes-content>
 
 
 
